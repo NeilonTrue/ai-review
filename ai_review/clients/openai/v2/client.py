@@ -34,6 +34,7 @@ def get_openai_v2_http_client() -> OpenAIV2HTTPClient:
 
     client = AsyncClient(
         timeout=settings.llm.http_client.timeout,
+        proxy=settings.llm.http_client.proxy_url,
         headers={"Authorization": f"Bearer {settings.llm.http_client.api_token_value}"},
         base_url=settings.llm.http_client.api_url_value,
         transport=retry_transport,

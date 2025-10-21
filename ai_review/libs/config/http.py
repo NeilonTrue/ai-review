@@ -4,6 +4,7 @@ from pydantic import BaseModel, HttpUrl, SecretStr
 class HTTPClientConfig(BaseModel):
     timeout: float = 120
     api_url: HttpUrl
+    proxy_url: HttpUrl = None
 
     @property
     def api_url_value(self) -> str:

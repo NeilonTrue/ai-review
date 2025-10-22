@@ -30,7 +30,9 @@ class OpenAIV2HTTPClient(HTTPClient, OpenAIV2HTTPClientProtocol):
 def get_openai_v2_http_client() -> OpenAIV2HTTPClient:
     logger = get_logger("OPENAI_V2_HTTP_CLIENT")
     logger_event_hook = LoggerEventHook(logger=logger)
-    retry_transport = RetryTransport(logger=logger, transport=AsyncHTTPTransport())
+
+    transport = AsyncHTTPTransport(proxy=settings.llm.http_client.proxy_url)
+    retry_transport = RetryTransport(logger=logger, transport=transport)
 
     client = AsyncClient(
         timeout=settings.llm.http_client.timeout,
